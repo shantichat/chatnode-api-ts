@@ -44,7 +44,7 @@ export interface components {
         timezone?: string;
         ext?: {
           icon?: string;
-          bot?: string;
+          bot?: boolean;
         };
       }
     > &

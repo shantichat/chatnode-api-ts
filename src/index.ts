@@ -4,20 +4,20 @@
  */
 
 export interface paths {
-  "/state": {
+  "/api/v1/state": {
     /** Information about server parameters. Can be used as ping */
     get: operations["getServerState"];
   };
-  "/users": {
+  "/api/v1/users": {
     get: operations["getUsers"];
   };
-  "/users/{userUid}": {
+  "/api/v1/users/{userUid}": {
     get: operations["getUserInfo"];
   };
-  "/users/me": {
+  "/api/v1/users/me": {
     get: operations["getMyInfo"];
   };
-  "/invites/": {
+  "/api/v1/invites/": {
     /** Used and unused invitation codes */
     get: operations["getInvites"];
   };

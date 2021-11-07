@@ -25,13 +25,11 @@ export interface paths {
 
 export interface components {
   schemas: {
-    /** Part of Base schema with uid, created_at and updated_at */
     BaseEntity: {
       uid: string;
       created_at: string;
       updated_at: string;
     };
-    /** Deleted object */
     DeletedEntity: {
       uid: string;
       updated_at: string;

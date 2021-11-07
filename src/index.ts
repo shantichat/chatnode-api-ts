@@ -26,30 +26,33 @@ export interface paths {
 export interface components {
   schemas: {
     /** Part of Base schema with uid, created_at and updated_at */
-    BaseAliveObject: {
+    BaseEntity: {
       uid: string;
       created_at: string;
       updated_at: string;
     };
-    Base:
-      | { [key: string]: unknown }
-      | components["schemas"]["BaseAliveObject"]
-      | (components["schemas"]["BaseAliveObject"] & {
-          deleted: boolean;
-        });
-    User: components["schemas"]["Base"] & {
-      name?: string;
-      timezone?: string;
-      ext?: {
-        icon?: string;
-        bot?: string;
-      };
+    /** Deleted object */
+    DeletedEntity: {
+      uid: string;
+      updated_at: string;
+      deleted: boolean;
     };
+    User: Partial<components["schemas"]["DeletedEntity"]> &
+      Partial<
+        components["schemas"]["BaseEntity"] & {
+          name?: string;
+          timezone?: string;
+          ext?: {
+            icon?: string;
+            bot?: string;
+          };
+        }
+      >;
     Invite: {
       code: string;
       created_at: string;
-      used_at: string;
-      invitee: string;
+      used_at?: string;
+      invitee?: string;
     };
   };
   parameters: {

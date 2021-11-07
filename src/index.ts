@@ -37,17 +37,17 @@ export interface components {
       updated_at: string;
       deleted: boolean;
     };
-    User: Partial<components["schemas"]["DeletedEntity"]> &
-      Partial<
-        components["schemas"]["BaseEntity"] & {
-          name?: string;
-          timezone?: string;
-          ext?: {
-            icon?: string;
-            bot?: string;
-          };
-        }
-      >;
+    User: Partial<
+      components["schemas"]["BaseEntity"] & {
+        name?: string;
+        timezone?: string;
+        ext?: {
+          icon?: string;
+          bot?: string;
+        };
+      }
+    > &
+      Partial<components["schemas"]["DeletedEntity"]>;
     Invite: {
       code: string;
       created_at: string;

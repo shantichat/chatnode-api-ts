@@ -25,19 +25,18 @@ export interface paths {
 
 export interface components {
   schemas: {
+    /** Part of Base schema with uid, created_at and updated_at */
+    BaseAliveObject: {
+      uid: string;
+      created_at: string;
+      updated_at: string;
+    };
     Base:
       | { [key: string]: unknown }
-      | {
-          uid: string;
-          created_at: string;
-          updated_at: string;
-        }
-      | {
-          uid: string;
-          created_at: string;
-          updated_at: string;
+      | components["schemas"]["BaseAliveObject"]
+      | (components["schemas"]["BaseAliveObject"] & {
           deleted: boolean;
-        };
+        });
     User: components["schemas"]["Base"] & {
       name?: string;
       timezone?: string;

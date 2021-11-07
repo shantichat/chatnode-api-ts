@@ -40,7 +40,7 @@ export interface components {
     };
     User: Partial<
       components["schemas"]["BaseEntity"] & {
-        name?: string;
+        name: string;
         timezone?: string;
         ext?: {
           icon?: string;

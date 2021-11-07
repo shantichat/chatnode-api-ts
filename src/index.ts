@@ -28,15 +28,15 @@ export interface components {
     Base:
       | { [key: string]: unknown }
       | {
-          uid?: string;
-          created_at?: string;
-          updated_at?: string;
+          uid: string;
+          created_at: string;
+          updated_at: string;
         }
       | {
-          uid?: string;
-          created_at?: string;
-          updated_at?: string;
-          deleted?: boolean;
+          uid: string;
+          created_at: string;
+          updated_at: string;
+          deleted: boolean;
         };
     User: components["schemas"]["Base"] & {
       name?: string;
@@ -47,10 +47,10 @@ export interface components {
       };
     };
     Invite: {
-      code?: string;
-      created_at?: string;
-      used_at?: string;
-      invitee?: string;
+      code: string;
+      created_at: string;
+      used_at: string;
+      invitee: string;
     };
   };
   parameters: {

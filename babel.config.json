@@ -1,0 +1,23 @@
+{
+    "presets": [
+      [
+        "@babel/env",
+        {
+          "useBuiltIns": "usage",
+          "corejs": "3.10.0"
+        }
+      ],
+      "@babel/preset-typescript"
+    ],
+    "plugins": [
+      [
+        "@babel/proposal-private-methods",
+        { "loose": true }
+      ],
+      [
+        "@babel/proposal-class-properties",
+        { "loose": true }
+      ],
+      "@babel/proposal-object-rest-spread"
+    ]
+  }

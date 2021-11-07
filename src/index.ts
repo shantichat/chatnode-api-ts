@@ -9,12 +9,15 @@ export interface paths {
     get: operations["getServerState"];
   };
   "/api/v1/users": {
+    /** Users lookup */
     get: operations["getUsers"];
   };
   "/api/v1/users/{userUid}": {
+    /** Full information about user */
     get: operations["getUserInfo"];
   };
   "/api/v1/users/me": {
+    /** Full information about self */
     get: operations["getMyInfo"];
   };
   "/api/v1/invites/": {
@@ -73,6 +76,7 @@ export interface operations {
       };
     };
   };
+  /** Users lookup */
   getUsers: {
     responses: {
       /** OK */
@@ -83,6 +87,7 @@ export interface operations {
       };
     };
   };
+  /** Full information about user */
   getUserInfo: {
     parameters: {
       path: {
@@ -98,6 +103,7 @@ export interface operations {
       };
     };
   };
+  /** Full information about self */
   getMyInfo: {
     responses: {
       /** OK */

@@ -12,6 +12,4 @@ jobs:
       with:
         node-version: '17'
     - run: npm install
-    - run: npm run lint
-    - run: npm run fix
     - run: npm run build

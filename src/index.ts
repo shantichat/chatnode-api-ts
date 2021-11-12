@@ -4,19 +4,19 @@
  */
 
 export interface paths {
-  "/api/v1/state": {
+  "/api/v1/state/": {
     /** Information about server parameters. Alse can be used as ping */
     get: operations["getServerState"];
   };
-  "/api/v1/users": {
+  "/api/v1/users/": {
     /** Users lookup */
     get: operations["getUsers"];
   };
-  "/api/v1/users/{userUid}": {
+  "/api/v1/users/{userUid}/": {
     /** Full information about user */
     get: operations["getUserInfo"];
   };
-  "/api/v1/users/me": {
+  "/api/v1/users/me/": {
     /** Full information about self */
     get: operations["getMyInfo"];
   };
@@ -34,12 +34,12 @@ export interface components {
   schemas: {
     BaseEntity: {
       uid: string;
-      created_at: string;
-      updated_at: string;
+      created_at: components["schemas"]["ISODateTime"];
+      updated_at: components["schemas"]["ISODateTime"];
     };
     DeletedEntity: {
       uid: string;
-      updated_at: string;
+      updated_at: components["schemas"]["ISODateTime"];
       deleted: boolean;
     };
     User: Partial<
@@ -48,7 +48,6 @@ export interface components {
         icon: string;
         timezone?: string;
         ext?: {
-          icon?: string;
           bot?: boolean;
         };
       }
@@ -58,7 +57,7 @@ export interface components {
       components["schemas"]["BaseEntity"] &
         ({
           code: string;
-          used_at?: string;
+          used_at?: components["schemas"]["ISODateTime"];
           invitee?: components["schemas"]["User"];
         } & {
           created_at: unknown;
@@ -70,6 +69,7 @@ export interface components {
       is_used?: boolean;
       required?: unknown;
     };
+    ISODateTime: string;
   };
   parameters: {
     userUid: string;
@@ -84,7 +84,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            time: string;
+            time: components["schemas"]["ISODateTime"];
             extensions: string[];
           };
         };

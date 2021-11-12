@@ -54,12 +54,17 @@ export interface components {
       }
     > &
       Partial<components["schemas"]["DeletedEntity"]>;
-    Invite: {
-      code: string;
-      created_at: string;
-      used_at?: string;
-      invitee?: string;
-    };
+    Invite: Partial<
+      components["schemas"]["BaseEntity"] &
+        ({
+          code: string;
+          used_at?: string;
+          invitee?: components["schemas"]["User"];
+        } & {
+          created_at: unknown;
+        })
+    > &
+      Partial<components["schemas"]["DeletedEntity"]>;
     InvitePreview: {
       inviter?: components["schemas"]["User"];
       is_used?: boolean;

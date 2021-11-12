@@ -5,7 +5,7 @@
 
 export interface paths {
   "/api/v1/state": {
-    /** Information about server parameters. Can be used as ping */
+    /** Information about server parameters. Alse can be used as ping */
     get: operations["getServerState"];
   };
   "/api/v1/users": {
@@ -22,6 +22,10 @@ export interface paths {
   };
   "/api/v1/invites/": {
     /** Used and unused invitation codes */
+    get: operations["getInvites"];
+  };
+  "/api/v1/invites/preview/": {
+    /** Information about invitation accectablility and invitee */
     get: operations["getInvites"];
   };
 }
@@ -41,6 +45,7 @@ export interface components {
     User: Partial<
       components["schemas"]["BaseEntity"] & {
         name: string;
+        icon?: string;
         timezone?: string;
         ext?: {
           icon?: string;
@@ -55,6 +60,10 @@ export interface components {
       used_at?: string;
       invitee?: string;
     };
+    InvitePreview: {
+      inviter?: components["schemas"]["User"];
+      is_used?: boolean;
+    };
   };
   parameters: {
     userUid: string;
@@ -62,7 +71,7 @@ export interface components {
 }
 
 export interface operations {
-  /** Information about server parameters. Can be used as ping */
+  /** Information about server parameters. Alse can be used as ping */
   getServerState: {
     responses: {
       /** OK */
@@ -114,13 +123,13 @@ export interface operations {
       };
     };
   };
-  /** Used and unused invitation codes */
+  /** Information about invitation accectablility and invitee */
   getInvites: {
     responses: {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["Invite"];
+          "application/json": components["schemas"]["InvitePreview"];
         };
       };
     };

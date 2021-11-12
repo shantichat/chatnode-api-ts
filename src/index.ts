@@ -18,7 +18,7 @@ export interface paths {
   };
   "/api/v1/users/me": {
     /** Full information about self */
-    get: operations["getMe"];
+    get: operations["getMyInfo"];
   };
   "/api/v1/invites/": {
     /** Used and unused invitation codes */
@@ -45,7 +45,7 @@ export interface components {
     User: Partial<
       components["schemas"]["BaseEntity"] & {
         name: string;
-        icon?: string;
+        icon: string;
         timezone?: string;
         ext?: {
           icon?: string;
@@ -63,6 +63,7 @@ export interface components {
     InvitePreview: {
       inviter?: components["schemas"]["User"];
       is_used?: boolean;
+      required?: unknown;
     };
   };
   parameters: {
@@ -78,8 +79,8 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            time?: string;
-            extensions?: string[];
+            time: string;
+            extensions: string[];
           };
         };
       };
@@ -113,7 +114,7 @@ export interface operations {
     };
   };
   /** Full information about self */
-  getMe: {
+  getMyInfo: {
     responses: {
       /** OK */
       200: {

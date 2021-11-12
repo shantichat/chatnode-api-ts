@@ -18,7 +18,7 @@ export interface paths {
   };
   "/api/v1/users/me": {
     /** Full information about self */
-    get: operations["getMyInfo"];
+    get: operations["getMe"];
   };
   "/api/v1/invites/": {
     /** Used and unused invitation codes */
@@ -26,7 +26,7 @@ export interface paths {
   };
   "/api/v1/invites/preview/": {
     /** Information about invitation accectablility and invitee */
-    get: operations["getInvites"];
+    get: operations["getInvitePreview"];
   };
 }
 
@@ -113,7 +113,7 @@ export interface operations {
     };
   };
   /** Full information about self */
-  getMyInfo: {
+  getMe: {
     responses: {
       /** OK */
       200: {
@@ -123,8 +123,19 @@ export interface operations {
       };
     };
   };
-  /** Information about invitation accectablility and invitee */
+  /** Used and unused invitation codes */
   getInvites: {
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Invite"];
+        };
+      };
+    };
+  };
+  /** Information about invitation accectablility and invitee */
+  getInvitePreview: {
     responses: {
       /** OK */
       200: {

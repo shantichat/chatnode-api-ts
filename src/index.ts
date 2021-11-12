@@ -23,6 +23,7 @@ export interface paths {
   "/api/v1/invites/": {
     /** Used and unused invitation codes */
     get: operations["getInvites"];
+    post: operations["createInvite"];
   };
   "/api/v1/invites/preview/": {
     /** Information about invitation accectablility and invitee */
@@ -131,6 +132,16 @@ export interface operations {
   };
   /** Used and unused invitation codes */
   getInvites: {
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Invite"][];
+        };
+      };
+    };
+  };
+  createInvite: {
     responses: {
       /** OK */
       200: {

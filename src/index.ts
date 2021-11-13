@@ -184,7 +184,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": unknown;
+        "application/json": {
+          code: components["schemas"]["InviteCode"];
+        };
       };
     };
   };
@@ -206,7 +208,12 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": unknown;
+        "application/json": {
+          code: components["schemas"]["InviteCode"];
+          username: string;
+          name?: string;
+          password: string;
+        };
       };
     };
   };

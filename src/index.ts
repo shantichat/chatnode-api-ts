@@ -10,24 +10,32 @@ export interface paths {
   };
   "/api/v1/users/": {
     /** Users lookup */
-    get: operations["getUsers"];
+    get: operations["getUserList"];
   };
   "/api/v1/users/{userUid}/": {
     /** Full information about user */
-    get: operations["getUserInfo"];
+    get: operations["getUser"];
   };
   "/api/v1/users/me/": {
     /** Full information about self */
-    get: operations["getMyInfo"];
+    get: operations["getMe"];
   };
   "/api/v1/invites/": {
     /** Used and unused invitation codes */
-    get: operations["getInvites"];
+    get: operations["getInviteList"];
     post: operations["createInvite"];
+  };
+  "/api/v1/invites/{inviteUid}/": {
+    /** Used and unused invitation codes */
+    get: operations["getInvite"];
   };
   "/api/v1/invites/preview/": {
     /** Information about invitation accectablility and invitee */
-    get: operations["getInvitePreview"];
+    post: operations["previewInvite"];
+  };
+  "/api/v1/invites/accept/": {
+    /** Information about invitation accectablility and invitee */
+    post: operations["acceptInvite"];
   };
 }
 
@@ -45,6 +53,7 @@ export interface components {
     };
     User: Partial<
       components["schemas"]["BaseEntity"] & {
+        username?: string;
         name: string;
         icon: string;
         timezone?: string;
@@ -57,7 +66,7 @@ export interface components {
     Invite: Partial<
       components["schemas"]["BaseEntity"] &
         ({
-          code: string;
+          code: components["schemas"]["InviteCode"];
           used_at?: components["schemas"]["ISODateTime"];
           invitee?: components["schemas"]["User"];
         } & {
@@ -65,6 +74,7 @@ export interface components {
         })
     > &
       Partial<components["schemas"]["DeletedEntity"]>;
+    InviteCode: string;
     InvitePreview: {
       inviter?: components["schemas"]["User"];
       is_used?: boolean;
@@ -93,7 +103,7 @@ export interface operations {
     };
   };
   /** Users lookup */
-  getUsers: {
+  getUserList: {
     responses: {
       /** OK */
       200: {
@@ -104,7 +114,7 @@ export interface operations {
     };
   };
   /** Full information about user */
-  getUserInfo: {
+  getUser: {
     parameters: {
       path: {
         userUid: components["parameters"]["userUid"];
@@ -120,7 +130,7 @@ export interface operations {
     };
   };
   /** Full information about self */
-  getMyInfo: {
+  getMe: {
     responses: {
       /** OK */
       200: {
@@ -131,7 +141,7 @@ export interface operations {
     };
   };
   /** Used and unused invitation codes */
-  getInvites: {
+  getInviteList: {
     responses: {
       /** OK */
       200: {
@@ -144,6 +154,17 @@ export interface operations {
   createInvite: {
     responses: {
       /** OK */
+      201: {
+        content: {
+          "application/json": components["schemas"]["Invite"];
+        };
+      };
+    };
+  };
+  /** Used and unused invitation codes */
+  getInvite: {
+    responses: {
+      /** OK */
       200: {
         content: {
           "application/json": components["schemas"]["Invite"];
@@ -152,13 +173,40 @@ export interface operations {
     };
   };
   /** Information about invitation accectablility and invitee */
-  getInvitePreview: {
+  previewInvite: {
     responses: {
       /** OK */
       200: {
         content: {
           "application/json": components["schemas"]["InvitePreview"];
         };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": unknown;
+      };
+    };
+  };
+  /** Information about invitation accectablility and invitee */
+  acceptInvite: {
+    responses: {
+      /** Already logged in */
+      200: {
+        content: {
+          "application/json": components["schemas"]["User"];
+        };
+      };
+      /** User created */
+      201: {
+        content: {
+          "application/json": components["schemas"]["User"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": unknown;
       };
     };
   };
